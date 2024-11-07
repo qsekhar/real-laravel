@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\AgentActivityEvent;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    broadcast(new AgentActivityEvent('asd'));
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
