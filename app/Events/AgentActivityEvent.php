@@ -6,20 +6,26 @@ use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
-class AgentActivityEvent implements ShouldBroadcast
+class AgentActivityEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $agent;
+    public $activity;
+
 
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(string $activity = null)
     {
-        //
+        $this->agent = Auth::user()->name;
+        $this->activity = $activity;
     }
 
     /**
