@@ -1,5 +1,6 @@
 import ActivityButtons from '@/Components/ActivityButtons';
 import IsAdmin from '@/Components/Auth/IsAdmin';
+import UserLog from '@/Components/UserLog';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import Echo from 'laravel-echo';
@@ -10,8 +11,6 @@ type EventData = {
     activity: string;
     when : string;
 };
-
-
 
 
 export default function Dashboard() {
@@ -67,14 +66,18 @@ export default function Dashboard() {
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <IsAdmin>
-                            <div className="p-6 text-gray-900 dark:text-gray-100">
+                            <div className="h-96 overflow-y-auto p-6 text-gray-900 shadow-md dark:text-gray-50">
                                 <ul>
-                                    {agentLogs.map((e, i) => {
+                                    {agentLogs.reverse().map((e, i) => {
                                         return (
-                                            <li key={i}>
-                                                {e.agent}, {e.activity}, {e.when}, {late}
-                                            </li>
-                                        )
+                                            <UserLog
+                                                key={i}
+                                                agent={e.agent}
+                                                activity={e.activity}
+                                                when={e.when}
+                                                late={late}
+                                            />
+                                        );
                                     })}
                                 </ul>
                             </div>

@@ -6,6 +6,7 @@ export default function ActivityButtons() {
     const handleCheckOut = () => {
         window.axios.post('/agent-activity/check-out');
     };
+
     return (
         <div className="flex gap-2 p-6 text-gray-900 dark:text-gray-100">
             <button
